@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.sumeeth.webapp.service;
 
 import com.sumeeth.webapp.data.dao.MoviesDAO;
@@ -25,11 +22,6 @@ public class MoviesServiceImpl implements MoviesService {
         return moviesDAO.getAllMovies();
     }
 
-    @Override
-    public List<Movies> getAllMoviesByLimit(int offSet,
-                                            int limit) {
-        return moviesDAO.getAllMoviesByLimit(offSet, limit);
-    }
 
     @Override
     public int synchMoviesFromLocalSytem() throws Exception {
@@ -65,6 +57,11 @@ public class MoviesServiceImpl implements MoviesService {
     @Override
     public List<Movies> getAllMoviesByUperLimit(int limit) {
         return moviesDAO.getAllMoviesByUperLimit(limit);
+    }
+
+    @Override
+    public List<Movies> getAllMoviesByLimitAndOffset(int limit,int offset) {
+        return moviesDAO.getAllMoviesByLimitAndOffset(limit,offset);
     }
 
 }

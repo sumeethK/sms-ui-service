@@ -1,11 +1,8 @@
-/**
- * 
- */
 package com.sumeeth.webapp.service;
 
-import java.util.List;
-
 import com.sumeeth.webapp.data.dto.Movies;
+
+import java.util.List;
 
 /**
  * @author sumeeth kumar kanojia
@@ -21,8 +18,6 @@ public interface MoviesService {
 
 	void save(Movies dto) throws Exception;
 
-	List<Movies> getAllMoviesByLimit(int offSet, int limit);
-
 	long getTotalMovies();
 
 	void updateMoviesCategory(String newCategory, int id);
@@ -30,4 +25,6 @@ public interface MoviesService {
 	Movies getMoviesById(int id);
 
     List<Movies> getAllMoviesByUperLimit(int limit);
+
+    List<Movies> getAllMoviesByLimitAndOffset(int limit, int offset);
 }

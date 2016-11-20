@@ -1,11 +1,8 @@
-/**
- * 
- */
 package com.sumeeth.webapp.data.dao;
 
-import java.util.List;
-
 import com.sumeeth.webapp.data.dto.Movies;
+
+import java.util.List;
 
 
 /**
@@ -15,8 +12,6 @@ import com.sumeeth.webapp.data.dto.Movies;
 public interface MoviesDAO {
 
 	List<Movies> getAllMovies();
-
-	List<Movies> getAllMoviesByLimit(int offSet, int limit);
 
 	int synchMoviesFromLocalSytem() throws Exception;
 
@@ -38,4 +33,6 @@ public interface MoviesDAO {
 	Movies getMoviesById(int id);
 
     List<Movies> getAllMoviesByUperLimit(int limit);
+
+    List<Movies> getAllMoviesByLimitAndOffset(int limit, int offset);
 }

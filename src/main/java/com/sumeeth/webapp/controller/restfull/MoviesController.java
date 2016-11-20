@@ -7,14 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import javax.websocket.server.PathParam;
 import java.util.List;
 import java.util.Map;
 
 @RestController
 @RequestMapping("movies")
 public class MoviesController {
-    Logger log = Logger.getLogger(MoviesController.class);
+    private Logger log = Logger.getLogger(MoviesController.class);
 
     @Autowired
     private MoviesService moviesService;
@@ -35,13 +34,67 @@ public class MoviesController {
     @ResponseBody
     public Map synchMovies()
             throws Exception {
-        Map<String, Object> map = new ModelMap();
         List<Movies> mList = moviesService
-                .getAllMoviesByLimit(
+                .getAllMoviesByLimitAndOffset(
                         getActualOffset(1, 10), 10);
         int rowsAffected = moviesService
                 .synchMoviesFromLocalSytem();
         long totalRows = moviesService.getTotalMovies();
+     return  generateResultMap(mList,rowsAffected,totalRows);
+    }
+
+    @RequestMapping(value = "/showAll", method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    public Map getAllMovies() {
+        Map<String, Object> map = new ModelMap();
+        List<Movies> mList =  moviesService.getAllMoviesByLimitAndOffset(
+                getActualOffset(1, 10), 10);
+        long total_rows = moviesService.getTotalMovies();
+        log.debug("getAllMovies: "+mList);
+        return  generateResultMap(mList, ((int) total_rows),total_rows);
+    }
+
+@RequestMapping(value = "/get/{total}", method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    public Map getSomeMovies(@PathVariable("total") String total){
+    int limit=10;
+    try {
+         limit = Integer.parseInt(total);
+    }catch (NumberFormatException e){
+        log.info(e);
+    }
+    log.debug("getSomeMovies limit :"+limit);
+    Map<String, Object> map = new ModelMap();
+    List<Movies> mList =moviesService.getAllMoviesByUperLimit(limit);
+    long total_rows = moviesService.getTotalMovies();
+    return  generateResultMap(mList, ((int) total_rows),total_rows);
+
+}
+
+    @RequestMapping(value = "/get/{limit}/{offset}", method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    public Map getMoviesLimitAndOffset(@PathVariable("limit") String limitParam,
+                                       @PathVariable("offset") String offsetParam){
+        int limit=10;
+        int offset=0;
+        try {
+            limit = Integer.parseInt(limitParam);
+            offset = Integer.parseInt(offsetParam);
+
+        }catch (NumberFormatException e){
+            log.info(e);
+        }
+        log.info("limit :"+limit);
+        Map<String, Object> map = new ModelMap();
+        List<Movies> mList = moviesService.getAllMoviesByLimitAndOffset(limit,offset);
+        long total_rows = moviesService.getTotalMovies();
+        return  generateResultMap(mList, ((int) total_rows),total_rows);
+
+    }
+
+    private Map<String, Object> generateResultMap(List<Movies> mList, int rowsAffected, long totalRows) {
+        Map<String, Object> map = new ModelMap();
+
         map.put("page_title", "Movies Offline");
         map.put("moviesList", mList);
         map.put("fileType", "movies");
@@ -52,50 +105,8 @@ public class MoviesController {
         return map;
     }
 
-    @RequestMapping(value = "/showAll", method = RequestMethod.GET, produces = "application/json")
-    @ResponseBody
-    public Map getMusicFromDB() {
-        Map<String, Object> map = new ModelMap();
-        List<Movies> mList = null;
-        mList = moviesService.getAllMoviesByLimit(
-                getActualOffset(1, 10), 10);
-        long total_rows = moviesService.getTotalMovies();
-        log.debug(mList);
-        map.put("page_title", "Movies Offline");
-        map.put("moviesList", mList);
-        map.put("fileType", "movies");
-        map.put("rows_affected", mList.size());
-        map.put("rows_count", total_rows / 10);
-        map.put("rows_start", 1);
-        map.put("rows_display", 10);
-        return map;
-    }
 
-@RequestMapping(value = "/get/{total}", method = RequestMethod.GET, produces = "application/json")
-    @ResponseBody
-    public Map getMusicFromDBWithUpperLimit(@PathVariable("total") String total){
-    int limit=0;
-    try {
-         limit = Integer.parseInt(total);
-    }catch (NumberFormatException e){
-        log.info(e);
-        limit=10;
-    }
-    log.info("limit :"+limit);
-    Map<String, Object> map = new ModelMap();
-    List<Movies> mList = null;
-    mList = moviesService.getAllMoviesByUperLimit(limit);
-    log.debug(mList);
-    map.put("page_title", "Movies Offline");
-    map.put("moviesList", mList);
-    map.put("fileType", "movies");
-    map.put("rows_affected", mList.size());
-    map.put("rows_count", mList.size());
-    map.put("rows_start", 1);
-    map.put("rows_display", 10);
-    return map;
 
-}
 
     private int getActualOffset(int value, int limit) {
 

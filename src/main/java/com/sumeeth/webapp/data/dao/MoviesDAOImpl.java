@@ -9,15 +9,14 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
-import javax.persistence.Query;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 @Repository
 public class MoviesDAOImpl implements MoviesDAO {
-    EntityManagerFactory emf;
-    Logger log = Logger.getLogger(MoviesDAO.class);
+    private EntityManagerFactory emf;
+    private Logger log = Logger.getLogger(MoviesDAO.class);
     @Value("${application.movies.bas.dir?: D:/MOVIES}")
     private String MOVIES_BASE_DIR;
 
@@ -31,28 +30,16 @@ public class MoviesDAOImpl implements MoviesDAO {
     @Override
     public List<Movies> getAllMovies() {
         EntityManager em = emf.createEntityManager();
-        return em.createQuery("from Movies", Movies.class).getResultList();
-    }
-
-    @SuppressWarnings("unchecked")
-    @Override
-    public List<Movies> getAllMoviesByLimit(int offSet,
-                                            int limit) {
-        EntityManager em = emf.createEntityManager();
-        Query qry = em.createQuery("FROM Movies", Movies.class);
-        qry.setFirstResult(offSet);
-        qry.setMaxResults(limit);
-        List<Movies> moviesList = qry.getResultList();
-        log.debug("Total Movies with offSet " + offSet + " , limit " + limit + "  is" +
-                moviesList.size());
+        List<Movies> moviesList = em.createQuery("from Movies", Movies.class).getResultList();
+        em.close();
         return moviesList;
-
     }
+
 
     @Override
     public int synchMoviesFromLocalSytem() throws Exception {
         File dir = new File(MOVIES_BASE_DIR);
-        log.info("Loading movies from :"+MOVIES_BASE_DIR);
+        log.info("Loading movies from :" + MOVIES_BASE_DIR);
         List<Movies> moviesListFromLocalSystem = DirectoryScanner
                 .getMoviesFromLocal(dir);
         List<Movies> moviesToBeInserted = new ArrayList<>();
@@ -89,19 +76,13 @@ public class MoviesDAOImpl implements MoviesDAO {
     private void insert(List<Movies> moviesToBeInserted) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-        moviesToBeInserted.stream().forEach(movie -> em.persist(movie));
+        moviesToBeInserted.forEach(movie -> {
+            em.persist(movie);
+        });
         em.getTransaction().commit();
+        em.close();
     }
 
-    private boolean checkIfAlreadyExists(Movies m) {
-        if (!getMoviesByAbsolutePath(m.getAbsolutePath())
-                .isEmpty())
-            return true;
-        else {
-            return false;
-        }
-
-    }
 
     @Override
     public List<Movies> getMoviesByName(String name) {
@@ -120,6 +101,7 @@ public class MoviesDAOImpl implements MoviesDAO {
         em.getTransaction().begin();
         em.merge(dto);
         em.getTransaction().commit();
+        em.close();
     }
 
     @Override
@@ -139,7 +121,9 @@ public class MoviesDAOImpl implements MoviesDAO {
     public long getTotalMovies() {
         EntityManager em = emf.createEntityManager();
         String jhql = "select count(m.id) FROM  Movies m";
-        return (long) em.createQuery(jhql).getSingleResult();
+        long total = (long) em.createQuery(jhql).getSingleResult();
+        em.close();
+        return total;
     }
 
 
@@ -147,7 +131,9 @@ public class MoviesDAOImpl implements MoviesDAO {
     public List<String> getAllAbsolutePaths() {
         EntityManager em = emf.createEntityManager();
         String jhql = "select m.absolutePath FROM  Movies m";
-        return em.createQuery(jhql).getResultList();
+        List resultList = em.createQuery(jhql).getResultList();
+        em.close();
+        return resultList;
     }
 
     @Override
@@ -164,9 +150,21 @@ public class MoviesDAOImpl implements MoviesDAO {
     @Override
     public List<Movies> getAllMoviesByUperLimit(int limit) {
         EntityManager em = emf.createEntityManager();
-
-        return ((List<Movies>) em.createQuery("from Movies ", Movies.class)
-                .setMaxResults(limit).getResultList());
+        List<Movies> moviesList = em.createQuery("from Movies ", Movies.class)
+                .setMaxResults(limit).getResultList();
+        em.close();
+        return moviesList;
     }
+
+    @Override
+    public List<Movies> getAllMoviesByLimitAndOffset(int limit, int offset) {
+        EntityManager em = emf.createEntityManager();
+        List<Movies> moviesList = em.createQuery("from Movies ", Movies.class)
+                .setFirstResult(offset)
+                .setMaxResults(limit).getResultList();
+        em.close();
+        return moviesList;
+    }
+
 
 }
