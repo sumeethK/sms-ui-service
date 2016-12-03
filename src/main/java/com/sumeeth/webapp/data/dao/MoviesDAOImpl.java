@@ -105,7 +105,7 @@ public class MoviesDAOImpl implements MoviesDAO {
     }
 
     @Override
-    public List<Movies> getMoviesByAbsolutePath(String path) {
+    public List<Movies> getMoviesByAbsolutePath(String path){
         EntityManager em = emf.createEntityManager();
 
         List<Movies> moviesList = em.createQuery("from Movies m where m.absolutePath=:arg1", Movies.class)

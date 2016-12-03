@@ -1,12 +1,14 @@
 package com.sumeeth.webapp.controller.restfull;
 
 import com.sumeeth.webapp.data.dto.Movies;
+import com.sumeeth.webapp.exception.Error;
 import com.sumeeth.webapp.service.MoviesService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 @CrossOrigin
@@ -14,6 +16,9 @@ import java.util.Map;
 @RequestMapping("movies")
 public class MoviesController {
     private Logger log = Logger.getLogger(MoviesController.class);
+
+    @Resource
+    Error moviesError;
 
     @Autowired
     private MoviesService moviesService;
@@ -27,7 +32,9 @@ public class MoviesController {
     @RequestMapping(value = "/error", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     public String error() {
-        return "Welcome to Restfull webservice! ";
+        moviesError.setErrorCode("404");
+        moviesError.setErrorDesc("Oops! Requested Resource Not Found.");
+        return moviesError.toString();
     }
 
     @RequestMapping(value = "/synch", method = RequestMethod.GET, produces = "application/json")
