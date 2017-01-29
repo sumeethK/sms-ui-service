@@ -25,12 +25,22 @@ public class Questions {
 
     protected Option options;
 
+    protected Answer answer;
+
 
     protected String comments;
 
 
     protected int level;
 
+
+    public Answer getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(Answer answer) {
+        this.answer = answer;
+    }
 
     public int getId() {
         return id;
@@ -120,6 +130,7 @@ public class Questions {
 
     }
 
+
     @Override
     public String toString() {
         return "Questions{" +
@@ -129,7 +140,8 @@ public class Questions {
                 ", isActive=" + isActive +
                 ", isLatestVersion=" + isLatestVersion +
                 ", question='" + question + '\'' +
-                ", options='" + options + '\'' +
+                ", options=" + options +
+                ", answer=" + answer +
                 ", comments='" + comments + '\'' +
                 ", level=" + level +
                 '}';

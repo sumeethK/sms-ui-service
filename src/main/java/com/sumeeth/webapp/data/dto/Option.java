@@ -5,15 +5,11 @@ package com.sumeeth.webapp.data.dto;
  */
 public class Option {
 
-    private static final String OPTION_SEPARATOR = ";";
-    private static final String OPTION_CODE_SEPARATOR = ":";
-    private static final String OPTION_CORRECT_SEPARATOR = ":";
 
     private String optionA;
     private String optionB;
     private String optionC;
     private String optionD;
-    private String key;
 
     public String getOptionA() {
         return optionA;
@@ -47,13 +43,6 @@ public class Option {
         this.optionD = optionD;
     }
 
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
-    }
 
     @Override
     public String toString() {
@@ -62,7 +51,6 @@ public class Option {
                 ",B='" + optionB + '\'' +
                 ",C='" + optionC + '\'' +
                 ",D='" + optionD + '\'' +
-                ",Key='" + key + '\'' +
                 '}';
     }
 }
