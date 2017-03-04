@@ -1,34 +1,20 @@
 package com.sumeeth.webapp.data.dto;
 
-import javax.persistence.*;
 import java.util.Date;
-
-@Entity
-@Table(name = "question_category", uniqueConstraints = {@UniqueConstraint(columnNames = {
-        "id"})})
 public class QuestionCategory {
 
-    @Id
-    @GeneratedValue
-    @Column
     protected int id;
 
-    @Column(name = "creation_date")
     protected Date creationDate;
 
-    @Column(name = "modified_date")
     protected Date modifiedDate;
 
-    @Column(name = "is_active")
     protected boolean isActive;
 
-    @Column(name = "is_latest_version")
     protected boolean isLatestVersion;
 
-    @Column(name = "NAME")
     protected String name;
 
-    @Column(name = "DESCRIPTION")
     protected String description;
 
     public int getId() {

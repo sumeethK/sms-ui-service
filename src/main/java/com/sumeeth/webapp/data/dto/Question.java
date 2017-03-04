@@ -3,7 +3,7 @@ package com.sumeeth.webapp.data.dto;
 import java.util.Date;
 import java.util.Objects;
 
-public class Questions {
+public class Question {
 
     protected int id;
 
@@ -26,6 +26,8 @@ public class Questions {
     protected Option options;
 
     protected Answer answer;
+
+    protected QuestionCategory category;
 
 
     protected String comments;
@@ -67,7 +69,7 @@ public class Questions {
     }
 
     public boolean isActive() {
-        return this.isActive == 1 ? true : false;
+        return this.isActive == 1;
     }
 
     public void setActive(int active) {
@@ -75,7 +77,7 @@ public class Questions {
     }
 
     public boolean isLatestVersion() {
-        return this.isLatestVersion == 1 ? true : false;
+        return this.isLatestVersion == 1;
     }
 
     public void setLatestVersion(int latestVersion) {
@@ -114,11 +116,18 @@ public class Questions {
         this.level = level;
     }
 
+    public QuestionCategory getCategory() {
+        return category;
+    }
+
+    public void setCategory(QuestionCategory category) {
+        this.category = category;
+    }
 
     @Override
     public boolean equals(Object o) {
-        if (o instanceof Questions) {
-            Questions q = (Questions) o;
+        if (o instanceof Question) {
+            Question q = (Question) o;
             return this.getId() == q.getId();
         } else return false;
 
@@ -133,7 +142,7 @@ public class Questions {
 
     @Override
     public String toString() {
-        return "Questions{" +
+        return "Question{" +
                 "id=" + id +
                 ", creationDate=" + creationDate +
                 ", modifiedDate=" + modifiedDate +

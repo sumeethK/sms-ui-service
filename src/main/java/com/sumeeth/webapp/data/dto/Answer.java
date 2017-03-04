@@ -6,16 +6,9 @@ package com.sumeeth.webapp.data.dto;
 public class Answer {
 
 
-    private int questionNo;
     private String key;
+    private String description;
 
-    public int getQuestionNo() {
-        return questionNo;
-    }
-
-    public void setQuestionNo(int questionNo) {
-        this.questionNo = questionNo;
-    }
 
     public String getKey() {
         return key;
@@ -25,11 +18,19 @@ public class Answer {
         this.key = key;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     @Override
     public String toString() {
         return "Answer{" +
-                "questionNo='" + questionNo + '\'' +
-                ", key='" + key + '\'' +
+                "key='" + key + '\'' +
+                ", description='" + description + '\'' +
                 '}';
     }
 }
