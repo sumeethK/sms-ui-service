@@ -1,6 +1,6 @@
 package com.sumeeth.webapp.controller.restfull;
 
-import com.sumeeth.webapp.data.dto.Questions;
+import com.sumeeth.webapp.data.dto.Question;
 import com.sumeeth.webapp.service.QuestionService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ public class QuizController {
     }
 
 
-    private Map<String, Object> generateResultMap(List<Questions> qList) {
+    private Map<String, Object> generateResultMap(List<Question> qList) {
         Map<String, Object> map = new ModelMap();
         map.put("page_title", "quiz Offline");
         map.put("questionList", qList);

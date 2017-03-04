@@ -5,64 +5,52 @@ package com.sumeeth.webapp.data.dto;
  */
 public class Option {
 
-    private static final String OPTION_SEPARATOR = ";";
-    private static final String OPTION_CODE_SEPARATOR = ":";
-    private static final String OPTION_CORRECT_SEPARATOR = ":";
 
-    private String optionA;
-    private String optionB;
-    private String optionC;
-    private String optionD;
-    private String key;
+    private String A;
+    private String B;
+    private String C;
+    private String D;
 
-    public String getOptionA() {
-        return optionA;
+    public String getA() {
+        return A;
     }
 
-    public void setOptionA(String optionA) {
-        this.optionA = optionA;
+    public void setA(String A) {
+        this.A = A;
     }
 
-    public String getOptionB() {
-        return optionB;
+    public String getB() {
+        return B;
     }
 
-    public void setOptionB(String optionB) {
-        this.optionB = optionB;
+    public void setB(String B) {
+        this.B = B;
     }
 
-    public String getOptionC() {
-        return optionC;
+    public String getC() {
+        return C;
     }
 
-    public void setOptionC(String optionC) {
-        this.optionC = optionC;
+    public void setC(String C) {
+        this.C = C;
     }
 
-    public String getOptionD() {
-        return optionD;
+    public String getD() {
+        return D;
     }
 
-    public void setOptionD(String optionD) {
-        this.optionD = optionD;
+    public void setD(String D) {
+        this.D = D;
     }
 
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
-    }
 
     @Override
     public String toString() {
-        return "Option{" +
-                "A='" + optionA + '\'' +
-                ",B='" + optionB + '\'' +
-                ",C='" + optionC + '\'' +
-                ",D='" + optionD + '\'' +
-                ",Key='" + key + '\'' +
+        return "{" +
+                "A='" + A + '\'' +
+                ",B='" + B + '\'' +
+                ",C='" + C + '\'' +
+                ",D='" + D + '\'' +
                 '}';
     }
 }

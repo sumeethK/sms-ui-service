@@ -1,6 +1,6 @@
 package com.sumeeth.webapp.service;
 
-import com.sumeeth.webapp.data.dto.Questions;
+import com.sumeeth.webapp.data.dto.Question;
 
 import java.util.List;
 
@@ -9,8 +9,11 @@ import java.util.List;
  */
 public interface QuestionService {
 
-    List<Questions> getAllQuestions();
+    List<Question> getAllQuestions();
 
-    List<Questions> getAllQuestoinsByCategory(int category);
+    List<Question> getAllQuestoinsByCategory(int category);
 
+    String toJson(List<Question> questionsList);
+
+//    JSONObject toJsonObject(List<Question> questionsList);
 }
