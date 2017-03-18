@@ -25,6 +25,7 @@ public class DirectoryScanner {
     public static int numberOfFiles(File dir) {
         int count = 0;
         File[] list = dir.listFiles();
+        assert list != null;
         for (File file : list)
             count = file.isFile() ? ++count : count;
 
@@ -34,6 +35,7 @@ public class DirectoryScanner {
     public static int numberOfDir(File dir) {
         int count = 0;
         File[] list = dir.listFiles();
+        assert list != null;
         for (File file : list)
             count = file.isDirectory() ? ++count : count;
 
@@ -43,6 +45,7 @@ public class DirectoryScanner {
     public static int numberOfFilesOrDir(File dir) {
         int count = 0;
         File[] list = dir.listFiles();
+        assert list != null;
         for (File file : list)
             count = file.isFile() ? ++count : file
                     .isDirectory() ? ++count : count;
@@ -78,11 +81,10 @@ public class DirectoryScanner {
     }
 
     public static FileInfoList listAllFilesWithExtension(
-            File dir, String[] extensions) {
+            File dir, String[] extensions) throws FileException {
         logger.info("Method Name : listAllFilesWithExtension");
         FileInfoList fl = new FileInfoList();
-        boolean exit = extensions == null ? true
-                : extensions.length < 1 ? true : false;
+        boolean exit = extensions == null || extensions.length < 1;
         if (exit) {
             logger.debug("File Extension is null. Exit...");
             return null;
@@ -108,7 +110,7 @@ public class DirectoryScanner {
                 }
             }
         } catch (Exception e) {
-            new FileException(e.getMessage());
+            throw new FileException(e.getMessage());
         }
         fl.setFileInfoList(fileInfoList);
         logger.info("File Size  : " + fileInfoList.size());
@@ -147,7 +149,7 @@ public class DirectoryScanner {
         return fl;
     }
 */
-    public static List<Movies> getMoviesFromLocal(File dir) {
+    public static List<Movies> getMoviesFromLocal(File dir) throws FileException {
         String[] extensions = {"mp4", "avi", "mkv"};
         logger.info("Method Name : listAllFilesWithExtension");
         List<Movies> mList = new ArrayList<Movies>();
@@ -171,7 +173,7 @@ public class DirectoryScanner {
                 }
             }
         } catch (Exception e) {
-            new FileException(e.getMessage());
+            throw new FileException(e.getMessage());
         }
         logger.info("File Size  : " + mList.size());
         return mList;

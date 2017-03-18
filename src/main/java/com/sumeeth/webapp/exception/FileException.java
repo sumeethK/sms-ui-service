@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.sumeeth.webapp.exception;
 
 import org.apache.log4j.Logger;
@@ -12,10 +9,10 @@ import org.apache.log4j.Logger;
 public class FileException extends Exception {
 
 	private static final long serialVersionUID = 1L;
-	private Logger LOGGER = Logger
-			.getLogger(FileException.class);
 
 	public FileException(String message) {
+		Logger LOGGER = Logger
+				.getLogger(FileException.class);
 		LOGGER.error(message);
 	}
 }

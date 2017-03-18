@@ -24,7 +24,7 @@ public interface MoviesService {
 
 	Movies getMoviesById(int id);
 
-    List<Movies> getAllMoviesByUperLimit(int limit);
+    List<Movies> getAllMoviesByUpperLimit(int limit);
 
     List<Movies> getAllMoviesByLimitAndOffset(int limit, int offset);
 }

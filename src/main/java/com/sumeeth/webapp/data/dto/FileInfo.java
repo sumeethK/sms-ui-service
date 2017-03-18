@@ -1,12 +1,8 @@
-/**
- * 
- */
 package com.sumeeth.webapp.data.dto;
-
-import java.util.Date;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.Date;
 
 /**
  * @author sumeeth kumar kanojia

@@ -55,7 +55,7 @@ public class MoviesServiceImpl implements MoviesService {
     }
 
     @Override
-    public List<Movies> getAllMoviesByUperLimit(int limit) {
+    public List<Movies> getAllMoviesByUpperLimit(int limit) {
         return moviesDAO.getAllMoviesByUperLimit(limit);
     }
 

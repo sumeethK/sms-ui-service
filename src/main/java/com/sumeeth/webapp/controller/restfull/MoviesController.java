@@ -72,7 +72,7 @@ public class MoviesController {
     }
     log.debug("getSomeMovies limit :"+limit);
     Map<String, Object> map = new ModelMap();
-    List<Movies> mList =moviesService.getAllMoviesByUperLimit(limit);
+    List<Movies> mList =moviesService.getAllMoviesByUpperLimit(limit);
     long total_rows = moviesService.getTotalMovies();
     return  generateResultMap(mList, ((int) total_rows),total_rows);
 

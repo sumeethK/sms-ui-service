@@ -19,14 +19,14 @@ public interface MoviesDAO {
 
 	void save(Movies dto) throws Exception;
 
-	abstract void insert(Movies dto)
+	void insert(Movies dto)
 			throws Exception;
 
 	List<Movies> getMoviesByAbsolutePath(String name);
 
 	long getTotalMovies();
 
-    List<String> getAllAbsolutePaths();
+    List getAllAbsolutePaths();
 
     void updateMoviesCategory(String newCategory, int id);
 

@@ -1,13 +1,9 @@
-/**
- * 
- */
 package com.sumeeth.webapp.data.dto;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author sumeeth kumar kanojia
@@ -59,7 +55,7 @@ public class FileInfoList {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		for (FileInfo fInfo : fileInfoList) {
-			sb.append(fInfo.toString() + "\n");
+			sb.append(fInfo.toString()).append("\n");
 		}
 		return sb.toString();
 	}

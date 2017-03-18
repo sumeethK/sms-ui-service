@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.sumeeth.webapp.helper;
 
 import com.sumeeth.webapp.data.dto.Movies;

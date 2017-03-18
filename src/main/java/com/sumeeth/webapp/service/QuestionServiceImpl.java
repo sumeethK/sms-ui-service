@@ -31,7 +31,7 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     public String toJson(List<Question> questionsList) {
         Gson gson = new Gson();
-        return gson.toJson(questionsList).toString();
+        return gson.toJson(questionsList);
     }
 
    /* @Override

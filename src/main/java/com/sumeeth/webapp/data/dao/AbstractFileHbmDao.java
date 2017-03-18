@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.sumeeth.webapp.data.dao;
 
 import org.hibernate.Session;

@@ -128,7 +128,7 @@ public class MoviesDAOImpl implements MoviesDAO {
 
 
     @Override
-    public List<String> getAllAbsolutePaths() {
+    public List getAllAbsolutePaths() {
         EntityManager em = emf.createEntityManager();
         String jhql = "select m.absolutePath FROM  Movies m";
         List resultList = em.createQuery(jhql).getResultList();

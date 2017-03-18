@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.sumeeth.webapp.util;
 
 import com.sumeeth.webapp.data.dto.FileInfo;
