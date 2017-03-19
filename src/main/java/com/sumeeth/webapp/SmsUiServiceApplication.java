@@ -9,6 +9,10 @@ import org.springframework.context.annotation.ImportResource;
 public class SmsUiServiceApplication {
 
 	public static void main(String[] args) {
+		/*
+		Entry point
+		*/
+
 		SpringApplication.run(SmsUiServiceApplication.class, args);
 	}
 }
